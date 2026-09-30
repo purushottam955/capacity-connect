@@ -29,11 +29,10 @@ app = FastAPI(
     version=settings.VERSION,
     docs_url="/docs",
     redoc_url="/redoc"
-    @app.get("/")
-def home():
-    return {"message": "CAPACITY CONNECT API is running"}
 )
-
+@app.get("/")
+def root():
+    return {"message": "CAPACITY CONNECT API is running"}
 # CORS Middleware
 app.add_middleware(
     CORSMiddleware,
