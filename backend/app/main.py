@@ -30,7 +30,7 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc"
     @app.get("/")
-    def root():
+def home():
     return {"message": "CAPACITY CONNECT API is running"}
 )
 
