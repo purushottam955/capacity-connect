@@ -1,0 +1,55 @@
+services:
+  # -------------------------------------------------------------
+  # Backend API Service (FastAPI + Uvicorn)
+  # -------------------------------------------------------------
+  - type: web
+    name: capacity-connect-api
+    env: python
+    rootDir: backend
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: capacity-connect-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: AI_PROVIDER
+        value: deterministic
+      - key: AI_API_KEY
+        value: ""
+
+  # -------------------------------------------------------------
+  # Frontend Client (Vite + React Static Site)
+  # -------------------------------------------------------------
+  - type: web
+    name: capacity-connect-ui
+    env: static
+    rootDir: frontend
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          name: capacity-connect-api
+          type: web
+          property: host
+          value: "https://${capacity-connect-api.host}/api"
+
+# -------------------------------------------------------------
+# Managed PostgreSQL Database
+# -------------------------------------------------------------
+databases:
+  - name: capacity-connect-db
+    databaseName: capacity_connect
+    user: cc_admin
+    plan: free

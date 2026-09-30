@@ -1,0 +1,12 @@
+CAPACITY CONNECT - INDIA METEOROLOGICAL DEPARTMENT
+MINISTRY OF EARTH SCIENCES
+STUDY RESOURCE: Operational NetCDF and GRIB2 Manipulation Guide
+Topic: Multidimensional Atmospheric Array Processing with Python xarray & Cartopy
+Target Competency: Python (Level 4), Data Analytics (Level 4)
+
+Summary of Topics:
+1. Opening NetCDF4 datasets with xarray.open_dataset()
+2. Spatial slicing and temporal resampling of ERA5 reanalysis grids
+3. Cartopy projection transformations (PlateCarree, LambertConformal)
+4. Calculating geostrophic wind components and vorticity fields
+5. Generating automated cyclone track and intensity plots
