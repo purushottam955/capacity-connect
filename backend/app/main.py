@@ -29,6 +29,9 @@ app = FastAPI(
     version=settings.VERSION,
     docs_url="/docs",
     redoc_url="/redoc"
+    @app.get("/")
+    def root():
+    return {"message": "CAPACITY CONNECT API is running"}
 )
 
 # CORS Middleware
